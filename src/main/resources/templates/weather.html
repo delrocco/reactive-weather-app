@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Simple Weather Viewer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 30%;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        td, th {
+          border-top: 1px solid #ddd;
+          border-bottom: 1px solid #ddd;
+          text-align: center;
+          padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Date</td>
+            <td><p th:text="|${date}|" /></td>
+        </tr>
+        <tr>
+            <td>Day</td>
+            <td><p th:text="|${day_name}|" /></td>
+        </tr>
+        <tr>
+            <td>High</td>
+            <td><p th:text="|${temp_high_celsius}|" /></td>
+        </tr>
+        <tr>
+            <td>Forecast</td>
+            <td><p th:text="|${forecast_blurb}|" /></td>
+        </tr>
+    </table>
+</body>
+</html>
