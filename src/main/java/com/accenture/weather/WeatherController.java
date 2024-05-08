@@ -2,8 +2,6 @@ package com.accenture.weather;
 
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
 
 
 @RestController
@@ -24,13 +22,9 @@ public class WeatherController
     private WeatherService svcWeather;
 
     @GetMapping
-    public Mono<WeatherModel> getForecastOfDay(
-            @Valid @Min(1) @Max(7)
-            @RequestParam(name="dayidx", defaultValue="1")  Integer dayidx,
-            @Valid @NotNull
-            @RequestParam(name="night", defaultValue="false") Boolean isNight)
+    public Flux<WeatherModel> getForecast(@Valid @NotNull @RequestParam(name="week", defaultValue="false") Boolean isWeek)
     {
-        return svcWeather.getForecastOfDay(dayidx, isNight);
+        return svcWeather.getForecast(isWeek);
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class, TypeMismatchException.class})
