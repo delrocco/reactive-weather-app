@@ -1,9 +1,5 @@
 package com.accenture.weather;
 
-import org.springframework.ui.Model;
-
-import java.time.LocalDate;
-
 public class WeatherModel
 {
     private String date;
@@ -13,16 +9,16 @@ public class WeatherModel
 
     public WeatherModel()
     {
-        date = "empty";
-        day_name = "empty";
-        temp_high_celsius = "empty";
-        forecast_blurb = "empty";
+        date = "";
+        day_name = "";
+        temp_high_celsius = "";
+        forecast_blurb = "";
     }
 
-    public WeatherModel(LocalDate date, String high, String forecast)
+    public WeatherModel(String date, String day, String high, String forecast)
     {
-        this.date = date.toString();
-        this.day_name = date.getDayOfWeek().toString();
+        this.date = date;
+        this.day_name = day;
         this.temp_high_celsius = high;
         this.forecast_blurb = forecast;
     }
