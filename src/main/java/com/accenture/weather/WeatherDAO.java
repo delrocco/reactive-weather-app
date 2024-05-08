@@ -11,17 +11,9 @@ public class WeatherDAO
 {
     private static final Logger Logger = LoggerFactory.getLogger(WeatherDAO.class);
     private static final String URLForecast = "https://api.weather.gov/gridpoints/MLB/33,70/forecast";
-    private static final int MinDay = 1;
-    private static final int MaxDay = 7;
 
     public Mono<WeatherModel> getForecastOfDay(int dayidx, boolean isNight)
     {
-        if (dayidx < MinDay || dayidx > MaxDay)
-        {
-            dayidx = clampInt(dayidx, MinDay, MaxDay);
-            Logger.warn(String.format("dayidx(%d) clamped between %d and %d", dayidx, MinDay, MaxDay));
-        }
-
         return Mono.just(new WeatherModel());
     }
 
