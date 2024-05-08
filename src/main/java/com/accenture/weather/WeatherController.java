@@ -13,16 +13,10 @@ public class WeatherController
     private WeatherService svcWeather;
 
     @GetMapping
-    public Mono<WeatherModel> getForecastToday()
-    {
-        return svcWeather.getForecastOfDay("1", "false");
-    }
-
-    @GetMapping("/{dayidx}")
     public Mono<WeatherModel> getForecastOfDay(
-            @PathVariable String dayidx,
-            @RequestParam(name="night", defaultValue="false") String night)
+            @RequestParam(name="dayidx", defaultValue="1") Integer dayidx,
+            @RequestParam(name="night", defaultValue="false") Boolean isNight)
     {
-        return svcWeather.getForecastOfDay(dayidx, night);
+        return svcWeather.getForecastOfDay(dayidx, isNight);
     }
 }
