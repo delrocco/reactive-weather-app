@@ -17,6 +17,9 @@ public class WeatherService
 
     public Flux<WeatherModel> getForecast(boolean isWeek)
     {
-        return daoWeather.getForecast(isWeek);
+        if (isWeek)
+            return daoWeather.getForecastWeek();
+        else
+            return daoWeather.getForecastToday();
     }
 }

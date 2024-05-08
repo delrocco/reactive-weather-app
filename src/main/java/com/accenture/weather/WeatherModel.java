@@ -1,18 +1,14 @@
 package com.accenture.weather;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 
 public class WeatherModel
 {
-    //private String date;
     private String dayName;
     private int tempHighCelsius;
     private String forecastBlurb;
 
     public WeatherModel()
     {
-        //date = "";
         dayName = "";
         tempHighCelsius = 0;
         forecastBlurb = "";
@@ -20,16 +16,10 @@ public class WeatherModel
 
     public WeatherModel(String day, int high, String forecast)
     {
-        //this.date = date;
         this.dayName = day;
         this.tempHighCelsius = high;
         this.forecastBlurb = forecast;
     }
-
-//    public String get_date()
-//    {
-//        return date;
-//    }
 
     public String getDayName()
     {
