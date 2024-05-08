@@ -1,11 +1,11 @@
 package com.accenture.weather;
 
 
-public class WeatherModel
+public final class WeatherModel
 {
-    private String dayName;
-    private int tempHighCelsius;
-    private String forecastBlurb;
+    private final String dayName;
+    private final int tempHighCelsius;
+    private final String forecastBlurb;
 
     public WeatherModel()
     {
