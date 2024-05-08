@@ -6,11 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class WeatherModel
 {
     //private String date;
-    @JsonProperty
     private String dayName;
-    @JsonProperty
     private int tempHighCelsius;
-    @JsonProperty
     private String forecastBlurb;
 
     public WeatherModel()
@@ -34,20 +31,20 @@ public class WeatherModel
 //        return date;
 //    }
 
-//    public String get_day_name()
-//    {
-//        return dayName;
-//    }
-//
-//    public int getTempHighCelsius()
-//    {
-//        return temp_high_celsius;
-//    }
-//
-//    public String getForecastBlurb()
-//    {
-//        return forecastBlurb;
-//    }
+    public String getDayName()
+    {
+        return dayName;
+    }
+
+    public int getTempHighCelsius()
+    {
+        return tempHighCelsius;
+    }
+
+    public String getForecastBlurb()
+    {
+        return forecastBlurb;
+    }
 
     public static int ConvertTempF2C(int fahrenheit)
     {
