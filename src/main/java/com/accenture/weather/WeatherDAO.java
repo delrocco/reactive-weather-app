@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +29,7 @@ public class WeatherDAO
         webForecastSvc = WebClient.builder().baseUrl(ForecastsDomain).build();
     }
 
-    public Flux<WeatherModel> getForecastToday()
+    public Mono<WeatherModelList> getForecastToday()
     {
         return webForecastSvc
                 .get()
@@ -56,12 +56,11 @@ public class WeatherDAO
                         Logger.error(String.format("Error parsing JSON weather data. %s", ex.getMessage()));
                     }
 
-                    return forecasts;
-                })
-                .flatMapMany(Flux::fromIterable);
+                    return new WeatherModelList(forecasts.toArray(new WeatherModel[0]));
+                });
     }
 
-    public Flux<WeatherModel> getForecastWeek()
+    public Mono<WeatherModelList> getForecastWeek()
     {
         return webForecastSvc
                 .get()
@@ -88,9 +87,8 @@ public class WeatherDAO
                         Logger.error(String.format("Error parsing JSON weather data. %s", ex.getMessage()));
                     }
 
-                    return forecasts;
-                })
-                .flatMapMany(Flux::fromIterable);
+                    return new WeatherModelList(forecasts.toArray(new WeatherModel[0]));
+                });
     }
 
     private WeatherModel parsePeriodToWeatherModel(JsonNode node)
