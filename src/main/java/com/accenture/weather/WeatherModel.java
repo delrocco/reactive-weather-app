@@ -1,45 +1,61 @@
 package com.accenture.weather;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 public class WeatherModel
 {
-    private String date;
-    private String day_name;
-    private String temp_high_celsius;
-    private String forecast_blurb;
+    //private String date;
+    @JsonProperty
+    private String dayName;
+    @JsonProperty
+    private int tempHighCelsius;
+    @JsonProperty
+    private String forecastBlurb;
 
     public WeatherModel()
     {
-        date = "";
-        day_name = "";
-        temp_high_celsius = "";
-        forecast_blurb = "";
+        //date = "";
+        dayName = "";
+        tempHighCelsius = 0;
+        forecastBlurb = "";
     }
 
-    public WeatherModel(String date, String day, String high, String forecast)
+    public WeatherModel(String day, int high, String forecast)
     {
-        this.date = date;
-        this.day_name = day;
-        this.temp_high_celsius = high;
-        this.forecast_blurb = forecast;
+        //this.date = date;
+        this.dayName = day;
+        this.tempHighCelsius = high;
+        this.forecastBlurb = forecast;
     }
 
-    public String get_date()
+//    public String get_date()
+//    {
+//        return date;
+//    }
+
+//    public String get_day_name()
+//    {
+//        return dayName;
+//    }
+//
+//    public int getTempHighCelsius()
+//    {
+//        return temp_high_celsius;
+//    }
+//
+//    public String getForecastBlurb()
+//    {
+//        return forecastBlurb;
+//    }
+
+    public static int ConvertTempF2C(int fahrenheit)
     {
-        return date;
+        return (int)((fahrenheit - 32.0) * (0.5555));
     }
 
-    public String get_day_name()
+    public static int ConvertTempC2F(int celsius)
     {
-        return day_name;
-    }
-
-    public String get_temp_high_celsius()
-    {
-        return temp_high_celsius;
-    }
-
-    public String get_forecast_blurb()
-    {
-        return forecast_blurb;
+        return (int)((celsius * 1.8) + 32.0);
     }
 }

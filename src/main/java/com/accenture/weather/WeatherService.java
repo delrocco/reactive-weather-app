@@ -1,18 +1,22 @@
 package com.accenture.weather;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
+
 
 @Service
 public class WeatherService
 {
+    @Autowired
+    private WeatherDAO daoWeather;
+
     public WeatherService()
     {
-
     }
 
-    public Mono<WeatherModel> getForecastOfDay(String dayidx, String night)
+    public Flux<WeatherModel> getForecast(boolean isWeek)
     {
-        return Mono.just(new WeatherModel());
+        return daoWeather.getForecast(isWeek);
     }
 }
