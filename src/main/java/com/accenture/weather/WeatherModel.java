@@ -1,6 +1,9 @@
 package com.accenture.weather;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class WeatherModel
 {
     private final String dayName;
