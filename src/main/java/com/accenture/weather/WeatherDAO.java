@@ -2,7 +2,6 @@ package com.accenture.weather;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -42,23 +41,6 @@ public class WeatherDAO
                 .uri(ForecastsURI).retrieve()
                 .bodyToMono(WeatherModelResponse.class)
                 .map(response -> response.properties);
-    }
-
-    private WeatherModel parsePeriodToWeatherModel(JsonNode node)
-    {
-        // parse the "day name"
-        String day = node.get("name").asText();
-
-        // parse the temperature (and units)
-        String tempUnits = node.get("temperatureUnit").asText();
-        int temp = node.get("temperature").asInt();
-        if (tempUnits.equalsIgnoreCase("F")) // client wants it in C for now
-            temp = WeatherModel.ConvertTempF2C(temp);
-
-        // parse the forecast description
-        String blurb = node.get("shortForecast").asText();
-
-        return new WeatherModel(day, temp, blurb);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
