@@ -1,6 +1,7 @@
 package com.accenture.weather;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,22 +61,6 @@ public class WeatherDAO
 
                     return new WeatherModelList(forecasts.toArray(new WeatherModel[0]));
                 });
-
-//                .map(json ->
-//                {
-//                    try
-//                    {
-//                        return new ObjectMapper()
-//                                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-//                                .readValue(json, WeatherModelResponse.class).properties;
-//                        //.map(resp -> resp.)
-//                        //.map(resp -> );
-//                    }
-//                    catch (Exception ignored)
-//                    {
-//                        return Mono.just(new WeatherModelList());
-//                    }
-//                });
     }
 
     public Mono<WeatherModelList> getForecastWeek()
@@ -111,11 +96,8 @@ public class WeatherDAO
 
     private WeatherModel parsePeriodToWeatherModel(JsonNode node)
     {
-        // parse the date and day
+        // parse the "day name"
         String day = node.get("name").asText();
-        String dtstr = node.get("startTime").asText();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
-        ZonedDateTime zonedDateTime = ZonedDateTime.parse(dtstr, formatter);
 
         // parse the temperature (and units)
         String tempUnits = node.get("temperatureUnit").asText();
@@ -129,83 +111,19 @@ public class WeatherDAO
         return new WeatherModel(day, temp, blurb);
     }
 
-//    @JsonIgnoreProperties(ignoreUnknown = true)
-//    private static class ForecastDTO
-//    {
-//        public String name;
-//        public int temperature;
-//        public String shortForecast;
-//
-//        public ForecastDTO()
-//        {
-//            name = "";
-//            temperature = 0;
-//            shortForecast = "";
-//        }
-//
-//        public ForecastDTO(String name, int temperature, String shortForecast)
-//        {
-//            this.name = name;
-//            this.temperature = temperature;
-//            this.shortForecast = shortForecast;
-//        }
-//    }
-//
-//    @JsonIgnoreProperties(ignoreUnknown = true)
-//    public static class ForecastPropertiesDTO
-//    {
-//        public ForecastDTO[] periods;
-//
-//        public ForecastPropertiesDTO()
-//        {
-//            periods = new ForecastDTO[0];
-//        }
-//
-//        public ForecastPropertiesDTO(ForecastDTO[] forecasts)
-//        {
-//            periods = forecasts;
-//        }
-//
-////        public com.accenture.weather.ForecastDTO[] getPeriods()
-////        {
-////            return periods;
-////        }
-////
-////        public void setPeriods(com.accenture.weather.ForecastDTO[] forecasts)
-////        {
-////            periods = forecasts;
-////        }
-//    }
-//
-//    @JsonIgnoreProperties(ignoreUnknown = true)
-//    public static class ForecastResponseDTO
-//    {
-//        public ForecastPropertiesDTO properties;
-//
-//        public ForecastResponseDTO()
-//        {
-//            properties = new ForecastPropertiesDTO();
-//        }
-//
-//        public ForecastResponseDTO(ForecastPropertiesDTO properties)
-//        {
-//            this.properties = properties;
-//        }
-//    }
-//
-//    @JsonIgnoreProperties(ignoreUnknown = true)
-//    public static class WeatherModelResponse
-//    {
-//        public WeatherModelList properties;
-//
-//        public WeatherModelResponse()
-//        {
-//            properties = new WeatherModelList();
-//        }
-//
-//        public WeatherModelResponse(WeatherModelList properties)
-//        {
-//            this.properties = properties;
-//        }
-//    }
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class WeatherModelResponse
+    {
+        public WeatherModelList properties;
+
+        public WeatherModelResponse()
+        {
+            properties = new WeatherModelList();
+        }
+
+        public WeatherModelResponse(WeatherModelList properties)
+        {
+            this.properties = properties;
+        }
+    }
 }
